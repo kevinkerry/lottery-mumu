@@ -242,7 +242,7 @@ public class  CommonLotteryPhaseDrawExecutor extends AbstractLotteryDrawExecutor
         lotteryOrderService.getByStatusAndType(lotteryType, phaseNo, orderStatusList, orderResultStatusList, null, lotteryDrawTask.getLastMatchNum(), pageBean);
 
         int totalOrderCount = pageBean.getTotalResult();
-        //logger.error("彩种:{},期号:{},最大场次:{},需要开奖的个数是:{}", lotteryDrawTask.getLotteryType(), lotteryDrawTask.getPhase(), lotteryDrawTask.getLastMatchNum(), totalOrderCount);
+        logger.error("彩种:{},期号:{},最大场次:{},需要开奖的个数是:{}", lotteryDrawTask.getLotteryType(), lotteryDrawTask.getPhase(), lotteryDrawTask.getLastMatchNum(), totalOrderCount);
         return totalOrderCount;
     }
 

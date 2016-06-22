@@ -133,7 +133,7 @@ public abstract class AbstractVenderNoticeProcess implements IVenderNoticeProces
         }
         for(TerminalProperty property: terminalPropertys){
             //如果agentCode为空直接返回所有属性
-            if(agentCode == null || agentCode.isEmpty()){
+            if(StringUtils.isBlank(agentCode)){
                 terminalId = property.getTerminalId();
                 break;
             }

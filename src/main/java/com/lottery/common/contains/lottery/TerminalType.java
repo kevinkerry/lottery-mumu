@@ -32,7 +32,6 @@ public enum TerminalType {
 	T_GAODE(26,"高德出票"),
 	T_HUANCAI(27,"环彩出票"),
 	T_RUIYING(28,"瑞盈出票"),
-	T_GZT(29,"广州2出票"),
 	T_Virtual(-1,"虚拟出票"),
 	
 	all(0,"全部");

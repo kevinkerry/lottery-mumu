@@ -33,7 +33,6 @@
         <import resource="classpath*:META-INF/spring/check/bean-vender-checker-gaode.xml"/>
         <import resource="classpath*:META-INF/spring/check/bean-vender-checker-huancai.xml"/>
         <import resource="classpath*:META-INF/spring/check/bean-vender-checker-ruiyingi.xml"/>
-        <import resource="classpath*:META-INF/spring/check/bean-vender-checker-gz2cp.xml"/>
 
 
     <!--手动检票 -->

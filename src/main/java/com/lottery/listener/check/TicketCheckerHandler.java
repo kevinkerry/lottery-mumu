@@ -96,7 +96,7 @@ public class TicketCheckerHandler {
     }
     public void ticketProcess(Ticket ticket,TicketVender ticketVender){
         if (ticket.getStatus()!=TicketStatus.PRINTING.value){//不是出票中的立刻返回
-            //logger.error("票:{},状态为:{},不是出票中",ticket.getId(),ticket.getStatus());
+            logger.error("票:{},状态为:{},不是出票中",ticket.getId(),ticket.getStatus());
             return;
         }
 
@@ -106,6 +106,7 @@ public class TicketCheckerHandler {
             logger.error("票:{}的终端id不同,只做日志记录,票中terminalId:{},通知的termianlId:{}",ticket.getId(),ticket.getTerminalId(),ticketVender.getTerminalId());
             return;
         }
+
         TicketVenderStatus ticketVenderStatus = ticketVender.getStatus();
         ITicketVenderProcessor process = ticketVenderProcessorMap.get(ticketVenderStatus);
         if (process != null) {
