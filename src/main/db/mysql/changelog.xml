@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+	<changeSet id="20130923001" author="fengqinyun" runAlways="false">
+		<sqlFile path="lottery.sql" encoding="UTF-8"
+			relativeToChangelogFile="true" />
+	</changeSet>
+   
+    <changeSet id="2014122301001" author="fengqinyun">
+      <addColumn tableName="merchant">
+        <column name="real_name" type="varchar(200)"></column>
+        <column name="phoneno" type="varchar(200)"></column>
+        <column name="idcard" type="varchar(200)"></column>
+      </addColumn>
+    </changeSet>
+     <changeSet id="2014122901001" author="renhongyu">
+      <addColumn tableName="lottery_caselot_buy">
+        <column name="real_name" type="varchar(200)"></column>
+        <column name="user_name" type="varchar(200)"></column>
+      </addColumn>
+    </changeSet>
+     <changeSet id="2014122901002" author="fengqinyun">
+     <addColumn tableName="ticket">
+       <column name="agency_prize" type="decimal(19,2)" defaultValue="0.00"></column>
+       <column name="agency_exchanged" type="int(10)" defaultValue="0"></column>
+     </addColumn>
+    </changeSet>
+    <changeSet id="2014122901003" author="fenginyun">
+      <createIndex tableName="ticket" indexName="idex_ticket_externalId">
+        <column name="external_id"></column>
+      </createIndex>
+    </changeSet>
+    <changeSet id="2014122901004" author="fenginyun">
+     <addColumn tableName="ticket">
+       <column name="machine_code" type="bigint(15)" defaultValue="0"></column>
+       <column name="sell_run_code" type="bigint(15)" defaultValue="0"></column>
+        <column name="md5_code" type="varchar(200)" defaultValue="0"></column>
+     </addColumn>
+    </changeSet>
+    <changeSet id="2015011101001" author="fengqinyun">
+      <createIndex tableName="ticket" indexName="idx_ticket_tid_createtime">
+        <column name="terminal_id"></column>
+        <column name="create_time"></column>
+      </createIndex>
+       <createIndex tableName="ticket" indexName="idx_ticket_stat_dead_line">
+        <column name="status"></column>
+        <column name="dead_line"></column>
+      </createIndex>
+    </changeSet>
+    <changeSet id="20150115001" author="fengqinyun">
+       <addColumn tableName="lottery_order">
+         <column name="agent_id" type="varchar(255)" defaultValue="0">
+           <constraints nullable="false"/>
+         </column>
+       </addColumn>
+    	<addColumn tableName="ticket">
+         <column name="agent_id" type="varchar(255)" defaultValue="0">
+           <constraints nullable="false"/>
+        </column>
+       </addColumn>
+    </changeSet>
+    <changeSet id="2015011601001" author="fengqinyun">
+      <addColumn tableName="user_account_detail">
+        <column name="user_name" type="varchar(255)" defaultValue="0">
+          <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015011901001" author="fengqinyun">
+      <addColumn tableName="lottery_logic_machine">
+        <column name="weight" type="int(5)" defaultValue="0">
+          <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015012401001" author="fengqinyun">
+      <addColumn tableName="t_member_account">
+        <column name="warn_amount" type="decimal(19,2)" defaultValue="0.00"></column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015012801001" author="fengqinyun">
+      <createTable tableName="lottery_upload_file">
+        <column name="id" type="varchar(255)">
+          <constraints primaryKey="true"/>
+        </column>
+        <column name="userno" type="varchar(255)">
+          <constraints nullable="false"/>
+        </column>
+        <column name="content" type="longtext">
+          <constraints nullable="false"/>
+        </column>
+        <column name="lottery_type" type="int(10)">
+         <constraints nullable="false"/>
+        </column>
+         <column name="phase" type="varchar(255)">
+         <constraints nullable="false"/>
+        </column>
+         <column name="multiple" type="int(10)">
+         <constraints nullable="false"/>
+        </column>
+        <column name="amount" type="decimal(19,2)">
+         <constraints nullable="false"/>
+        </column>
+         <column name="convert_content" type="longtext">
+         
+        </column>
+        <column name="create_time" type="timestamp(6)">
+          <constraints nullable="false"/>
+        </column>
+        <column name="file_name" type="varchar(4000)" defaultValue="0"/>
+      </createTable>
+    </changeSet>
+    
+     <changeSet id="2015021501001" author="renhongyu" runAlways="false">
+      <addColumn tableName="t_member_account">
+        <column name="sms_flag" type="int(2)" defaultValue="0">
+          <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015022101001" author="fengqinyun">
+      <addColumn tableName="terminal_config">
+        <column name="is_check_enabled" type="int(2)" defaultValue="0">
+         <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015022101002" author="fengqinyun">
+      <addColumn tableName="terminal">
+        <column name="is_check_enabled" type="int(2)" defaultValue="0">
+         <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015022801001" author="fengqinyun">
+      <addColumn tableName="lottype_config">
+       <column name="heimai_Forward" type="int(10)" defaultValue="0"></column>
+       <column name="upload_Forward" type="int(5)" defaultValue="0"></column>
+       <column name="web_end_sale" type="int(5)" defaultValue="0"></column>
+       <column name="ios_end_sale" type="int(5)" defaultValue="0"></column>
+       <column name="android_end_sale" type="int(5)" defaultValue="0"></column>
+       <column name="is_add_prize" type="int(5)" defaultValue="0"></column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015022801002" author="fengqinyun">
+      <addColumn tableName="lottery_logic_machine">
+       <column name="ip" type="varchar(4000)"></column>
+       <column name="port" type="int(10)" defaultValue="0"></column>
+       <column name="describe_str" type="varchar(4000)"></column>
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015031301001" author="fengqinyun">
+        <addColumn tableName="lottype_config">
+            <column name="single_hemai_forward" type="int(5)" defaultValue="0"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015032201001" author="fengqinyun">
+        <addColumn tableName="lottery_order">
+            <column name="ticket_count" defaultValue="0" type="bigint(15)"/>
+            <column name="fail_count" defaultValue="0" type="bigint(15)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015032301001" author="fengqinyun">
+        <addColumn tableName="user_recharge_give">
+            <column name="agencyno" type="varchar(200)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2015040201001" author="fengqingyun">
+        <createTable tableName="lottery_agency">
+            <column name="agency_no" type="varchar(200)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="parent_agency" type="varchar(200)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="agency_type" type="int(5)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="int(5)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="lottery_agency_point_location">
+            <column name="id" type="bigint(20)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="agency_no" type="varchar(200)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_agency" type="varchar(200)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lottery_type" type="int(10)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="point_location" type="decimal(19,4)" defaultValue="0.000">
+                <constraints nullable="false"/>
+            </column>
+            <column name="agency_point_location" type="decimal(19,4)" defaultValue="0.000">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_point_location" type="decimal(19,4)" defaultValue="0.000">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="int(5)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2015040201002" author="fengqinyun">
+     <addColumn tableName="lottype_config">
+     <column name="sale_enabled" type="int(5)" defaultValue="1">
+       <constraints nullable="false"/>
+     </column>
+     </addColumn>
+    </changeSet>
+    <changeSet id="2015040801001" author="fengqinyun">
+      <addColumn tableName="user_draw_bank">
+        <column name="draw_type" type="int(5)" defaultValue="0">
+         <constraints nullable="false"/>
+        </column>
+      </addColumn>
+    </changeSet>
+    
+    <changeSet id="2015041001001" author="renhongyu">
+   		<sql>
+    	ALTER TABLE `auto_join`   
+		  CHANGE `lottype` `lottery_type` INT(6) NOT NULL,
+		  CHANGE `joinAmt` `join_amt` BIGINT(10) NULL,
+		  CHANGE `joinTimes` `join_times` INT(3) NULL,
+		  CHANGE `failNum` `fail_num` INT(3) NULL,
+		  CHANGE `createTime` `create_time` TIMESTAMP(6) NULL,
+		  CHANGE `UPDATETIME` `update_time` TIMESTAMP(6) NULL,
+		  CHANGE `autoJoinState` `status` INT(1) NOT NULL,
+		  CHANGE `forceJoin` `force_join` INT(1) NULL;
+		
+		ALTER TABLE `auto_join_detail`   
+		  CHANGE `autoJoinId` `auto_join_id` BIGINT(20) NOT NULL,
+		  CHANGE `caseLotBuyId` `caselot_buy_id` VARCHAR(60) NULL,
+		  CHANGE `userno` `userno` VARCHAR(60) CHARSET utf8 COLLATE utf8_general_ci NOT NULL,
+		  CHANGE `caselotId` `caselot_id` VARCHAR(255) CHARSET utf8 COLLATE utf8_general_ci NOT NULL,
+		  CHANGE `joinAmt` `join_amt` BIGINT(10) NULL,
+		  CHANGE `state` `status` INT(1) NOT NULL,
+		  CHANGE `createTime` `create_time` TIMESTAMP(6) NULL,
+		  CHANGE `LOTTYPE` `lottery_type` INT(6) NOT NULL;
+		
+		
+		ALTER TABLE `lottery_caselot`   
+		  CHANGE `buyAmtByFollower` `buyamt_by_follower` BIGINT(20) NOT NULL,
+		  CHANGE `buyAmtByStarter` `buyamt_by_starter` BIGINT(20) NULL,
+		  CHANGE `commisionRatio` `commision_ratio` INT(6) NOT NULL,
+		  CHANGE `displayState` `display_state` INT(2) NULL,
+		  CHANGE `displayStateMemo` `display_state_memo` VARCHAR(100) CHARSET utf8 COLLATE utf8_bin NULL,
+		  CHANGE `endTime` `end_time` DATETIME NULL,
+		  CHANGE `isExchanged` `is_exchanged` INT(1) NULL,
+		  CHANGE `lotsType` `lots_type` INT(5) NULL,
+		  CHANGE `lottype` `lottery_type` INT(11) NOT NULL,
+		  CHANGE `minAmt` `min_amt` BIGINT(20) NULL,
+		  CHANGE `participantCount` `participant_count` BIGINT(20) NULL,
+		  CHANGE `phaseNo` `phase` VARCHAR(50) CHARSET utf8 COLLATE utf8_bin NULL,
+		  CHANGE `safeAmt` `safe_amt` BIGINT(20) NULL,
+		  CHANGE `sortState` `sort_state` INT(5) NULL,
+		  CHANGE `startTime` `start_time` DATETIME NULL,
+		  CHANGE `starter` `starter` VARCHAR(60) CHARSET utf8 COLLATE utf8_bin NOT NULL,
+		  CHANGE `state` `state` INT(5) NOT NULL,
+		  CHANGE `totalAmt` `total_amt` BIGINT(20) NULL,
+		  CHANGE `winBigAmt` `win_big_amt` BIGINT(20) NULL,
+		  CHANGE `winDetail` `win_detail` VARCHAR(255) CHARSET utf8 COLLATE utf8_bin NULL,
+		  CHANGE `winPreAmt` `win_pre_amt` BIGINT(20) NULL,
+		  CHANGE `winStartTime` `win_start_time` DATETIME NULL;
+		
+		
+		ALTER TABLE `lottery_caselot_buy`   
+		  CHANGE `buyDrawAmt` `buy_draw_amt` DECIMAL(19,2) NULL,
+		  CHANGE `buyTime` `buy_time` DATETIME NULL,
+		  CHANGE `buyType` `buy_type` INT(6) NULL,
+		  CHANGE `caselotId` `caselot_id` VARCHAR(60) CHARSET utf8 COLLATE utf8_bin NOT NULL,
+		  CHANGE `commisionPrizeAmt` `commision_prize_amt` DECIMAL(19,2) NULL,
+		  CHANGE `flag` `flag` INT(2) NULL,
+		  CHANGE `freezDrawAmt` `freez_draw_amt` DECIMAL(19,2) NULL,
+		  CHANGE `freezeSafeAmt` `freeze_safe_amt` DECIMAL(19,2) NULL,
+		  CHANGE `isExchanged` `is_exchanged` INT(1) NULL,
+		  CHANGE `lottype` `lottery_type` INT(10) NOT NULL,
+		  CHANGE `phaseNo` `phase` VARCHAR(50) CHARSET utf8 COLLATE utf8_bin NULL,
+		  CHANGE `prizeAmt` `prize_amt` DECIMAL(19,2) NULL,
+		  CHANGE `safeAmt` `safe_amt` DECIMAL(19,2) NULL,
+		  CHANGE `userno` `userno` VARCHAR(60) CHARSET utf8 COLLATE utf8_bin NOT NULL;
+		
+		ALTER TABLE `user_achievement`   
+		  CHANGE `lottype` `lottery_type` INT(11) NOT NULL,
+		  CHANGE `effectiveAchievement` `effective_achievement` BIGINT(20) NULL,
+		  CHANGE `ineffectiveAchievement` `ineffective_achievement` BIGINT(20) NULL,
+		  CHANGE `updateTime` `update_time` DATETIME NULL;
+		
+		ALTER TABLE `user_achievement_detail`   
+		  CHANGE `userno` `userno` VARCHAR(60) CHARSET utf8 COLLATE utf8_general_ci NOT NULL,
+		  CHANGE `lottype` `lottery_type` INT(11) NOT NULL,
+		  CHANGE `achievementType` `achievement_type` INT(1) NULL,
+		  CHANGE `caselotId` `caselot_id` VARCHAR(60) CHARSET utf8 COLLATE utf8_general_ci NULL,
+		  CHANGE `createTime` `create_time` DATETIME NULL;
+    	</sql>
+    </changeSet>
+    <changeSet id="2015041001002" author="renhongyu">
+      <addColumn tableName="lottery_caselot">
+        <column name="start_name" type="VARCHAR(100)" />
+      </addColumn>
+    </changeSet>
+    <changeSet id="2015041301001" author="fengqinyun">
+        <addColumn tableName="lottery_draw_amount">
+            <column name="submit_time" type="timestamp(6)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015042001001" author="fengqinyun">
+        <createIndex indexName="caselot_state" tableName="lottery_caselot">
+            <column name="state"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015042101001" author="fengqinyun">
+        <addColumn tableName="lottery_ticket_config">
+            <column name="send_count" type="int(10)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015042201001" author="fengqinyun">
+        <createTable tableName="lottery_phase_draw_config">
+            <column name="id" type="bigint(20)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="lottery_type" type="int(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="terminal_id" type="int(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_enabled" type="int(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sync_time" type="int(5)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="lottery_phase_draw_config" indexName="idx_phase_draw_lt" unique="true">
+            <column name="lottery_type"/>
+            <column name="terminal_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015042201002" author="fengqinyun">
+        <addColumn tableName="lottery_phase_draw_config">
+            <column name="terminal_name" type="varchar(200)"/>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="2015042901001" author="liuhongxing">
+        <addColumn tableName="lottery_order">
+            <column name="prize_optimize" type="int(5)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+
+	<changeSet id="2015042901002" author="renhongyu">
+        <addColumn tableName="lottery_agency">
+            <column name="create_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="lottery_agency">
+            <column name="level" type="int(2)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015050301001" author="renhongyu">
+        <addColumn tableName="lottery_agency">
+            <column name="leaf" type="int(2)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015050801001" author="fengqinyun">
+        <createIndex tableName="lottery_order" indexName="idx_order_status">
+            <column name="order_status"/>
+        </createIndex>
+        <createIndex tableName="lottery_order" indexName="idx_order_result_status">
+            <column name="order_result_status"/>
+        </createIndex>
+        <createIndex tableName="lottery_order" indexName="idx_order_printtime">
+            <column name="print_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015050801002" author="fengqinyun">
+        <addColumn tableName="lottype_config">
+            <column name="b2b_forward" type="int(10)" defaultValue="0"/>
+            <column name="b2b_end_sale" type="int(5)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015051001001" author="fengqinyun">
+        <createIndex tableName="ticket" indexName="idx_ticket_result_time">
+            <column name="ticket_result_status"/>
+            <column name="draw_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015051101001" author="fengqinyun">
+        <addColumn tableName="lottery_draw_amount">
+            <column name="bank_name" type="varchar(255)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015051201001" author="fengqinyun">
+        <createIndex tableName="lottery_chase" indexName="idx_chase_userno">
+            <column name="userno"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015051201002" author="fengqinyun">
+        <createIndex tableName="lottery_chase" indexName="idx_chase_creatime">
+            <column name="create_time"/>
+        </createIndex>
+        <createIndex tableName="lottery_chase" indexName="idx_chase_lottype_chagetiem">
+            <column name="lottery_type"/>
+            <column name="change_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015051801001" author="fengqinyun">
+        <addColumn tableName="lottery_draw_amount">
+            <column name="draw_bank_id" type="varchar(200)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015052101001" author="fengqinyun">
+        <createIndex tableName="merchant_order" indexName="idx_merchant_orderlp">
+            <column name="lottery_type"/>
+            <column name="phase"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015052701001" author="fengqinyun">
+        <addColumn tableName="lottery_logic_machine">
+            <column name="city_code" type="varchar(200)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015052901001" author="fengqinyun">
+        <createIndex tableName="lottery_draw_amount" indexName="idx_draw_amount_status">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015060101001" author="fengqinyun">
+        <addColumn tableName="lottery_caselot">
+            <column name="order_result_status" type="int(5)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015060101002" author="fengqinyun">
+        <addColumn tableName="lottery_agency">
+            <column name="agency_name" type="varchar(200)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015060301001" author="fengqinyun">
+        <addColumn tableName="merchant_order">
+            <column name="order_status_notice" type="int(5)" defaultValue="0"/>
+            <column name="prize_status_notice" type="int(5)" defaultValue="0"/>
+            <column name="end_time" type="timestamp(6)"/>
+            <column name="batch_id" type="varchar(200)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015060301002" author="fengqinyun">
+        <createIndex tableName="merchant_order" indexName="idx_merchantorder_status">
+            <column name="order_status_notice"/>
+        </createIndex>
+        <createIndex tableName="merchant_order" indexName="idx_merchantprize_status">
+            <column name="prize_status_notice"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015070101001" author="fengqinyun">
+        <addColumn tableName="terminal_config">
+            <column name="terminate_allot_forward" type="bigint(20)" defaultValue="0"/>
+            <column name="prefer_amount_region" type="varchar2(4000)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015070501001" author="fengqinyun">
+        <createIndex tableName="merchant_order" indexName="idx_morder_creat">
+            <column name="create_time"/>
+        </createIndex>
+        <createIndex tableName="merchant_order" indexName="idx_morder_endtime">
+            <column name="end_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="2015070601001" author="fengqinyun">
+        <addColumn tableName="t_member_account">
+            <column name="is_sync" type="int(5)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="20150710001" author="liuhongxing">
+		<addColumn tableName="jczq_race">
+			<column name="match_short_name" type="varchar(30)" defaultValue="" />
+			<column name="home_team_short" type="varchar(30)" defaultValue="" />
+			<column name="away_team_short" type="varchar(30)" defaultValue=""/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="20150710002" author="liuhongxing">
+		<addColumn tableName="jclq_race">
+			<column name="match_short_name" type="varchar(30)" defaultValue="" />
+			<column name="home_team_short" type="varchar(30)" defaultValue="" />
+			<column name="away_team_short" type="varchar(30)" defaultValue=""/>
+		</addColumn>
+	</changeSet>
+    <changeSet id="20150909001" author="fengqinyun">
+        <addColumn tableName="lottype_config">
+            <column name="hemai_end_sale" type="int(5)" defaultValue="0"/>
+            <column name="chase_end_sale" type="int(5)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015092101001" author="fengqinyun">
+        <addColumn tableName="lottery_phase">
+            <column name="real_draw_time" type="timestamp(6)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2015101001001" author="fengqinyun">
+        <addColumn tableName="user_account">
+            <column name="phoneno" type="varchar(200)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015102001001" author="fengqinyun">
+        <addColumn tableName="lottery_caselot_buy">
+            <column name="total_amount" type="decimal(19,2)" defaultValue="0.00"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2015102001002" author="fengqinyun">
+        <addColumn tableName="lottery_caselot_buy">
+            <column name="lots_type" type="int(5)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015111601001" author="fengqinyun">
+        <addColumn tableName="lottery_ticket_config">
+            <column name="chase_endsale_forward" type="bigint(20)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015111901001" author="fengqinyun">
+        <addColumn tableName="lottery_caselot">
+            <column name="is_commission" defaultValue="0" type="int(5)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2015120701001" author="fengqinyun">
+        <addColumn tableName="lottype_config">
+            <column name="end_forward" type="int(10)" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="fengqinyun" id="2016022101002">
+        <addColumn tableName="terminal_config">
+            <column name="playtype_not_contain_enabled" type="int(2)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="playtype_not_contain" type="blob"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="fengqinyun" id="2016030201001">
+        <addColumn tableName="merchant">
+            <column name="is_notice" defaultValue="0" type="int(2)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+     <changeSet id="20160305001" author="renhongyu">
+     <createTable tableName="coupon_type">
+        <column name="id" type="bigint(10)">
+			<constraints primaryKey="true" />
+		</column>
+		<column name="create_time" type="timestamp">
+			<constraints nullable="false" />
+		</column>
+		<column name="update_time" type="timestamp">
+		</column>
+		<column name="lottery_types" type="varchar(300)">
+			<constraints nullable="false" />
+		</column>
+		<column name="title" type="varchar(100)" />
+		<column name="description" type="varchar(300)" />
+		<column name="content" type="varchar(300)" />
+		<column name="order_amount" type="decimal(19,2)">
+			<constraints nullable="false" />
+		</column>
+		<column name="discount_amount" type="decimal(19,2)">
+			<constraints nullable="false" />
+		</column>
+		<column name="start_date" type="date" />
+		<column name="end_date" type="date">
+			<constraints nullable="false" />
+		</column>
+		<column name="status" type="int(2)">
+			<constraints nullable="false" />
+		</column>
+      </createTable>
+       <createTable tableName="user_coupon">
+        <column name="id" type="varchar(50)">
+			<constraints primaryKey="true" />
+		</column>
+		<column name="create_time" type="timestamp">
+			<constraints nullable="false" />
+		</column>
+		<column name="update_time" type="timestamp" />
+		<column name="order_time" type="timestamp" />
+		<column name="end_date" type="date">
+			<constraints nullable="false" />
+		</column>
+		<column name="coupon_type_id" type="bigint(10)" />
+		<column name="coupon_type_desc" type="varchar(500)">
+			<constraints nullable="false" />
+		</column>
+		<column name="order_id" type="varchar(50)" />
+		<column name="status" type="int(2)">
+			<constraints nullable="false" />
+		</column>
+		<column name="userno" type="varchar(50)">
+			<constraints nullable="false" />
+		</column>
+      </createTable>
+	</changeSet>
+    <changeSet author="fengqinyun" id="2016032501001">
+        <addColumn tableName="user_coupon">
+            <column name="preferential_amount" defaultValue="0" type="decimal(19)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="fengqinyun" id="2016032901001">
+        <addColumn tableName="lottery_phase_draw_config">
+            <column name="is_draw" defaultValue="0" type="int(2)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    
+    <changeSet id="201603310001" author="liuhongxing">
+    	<createTable tableName="jc_guanyajun_race">
+    		<column name="lottery_type" type="int(11)">
+    			<constraints primaryKey="true" nullable="false"/>
+    		</column>
+    		<column name="phase" type="varchar(10)">
+    			<constraints primaryKey="true" nullable="false"/>
+    		</column>
+    		<column name="matchnum" type="varchar(5)">
+    			<constraints primaryKey="true" nullable="false"/>
+    		</column>
+    		<column name="content" type="varchar(20)">
+    			<constraints nullable="false"/>
+    		</column>
+    		<column name="status" type="int(2)">
+    			<constraints nullable="false"/>
+    		</column>
+    		<column name="prize_status" type="int(2)">
+    			<constraints nullable="false"/>
+    		</column>
+    		<column name="odd" type="varchar(10)" defaultValue=" "/>
+    		<column name="iswin" type="int(2)">
+    			<constraints nullable="false"/>
+    		</column>
+    	</createTable>
+    </changeSet>
+    
+    <changeSet id="201604010001" author="liuhongxing">
+    	<addColumn tableName="jc_guanyajun_race">
+    		<column name="probability" type="varchar(10)" defaultValue=" "/>
+    		<column name="supportrate" type="varchar(10)" defaultValue=" "/>
+    	</addColumn>
+    </changeSet>
+    <changeSet id="201604020001" author="renhongyu">
+    	<addColumn tableName="terminal_config">
+    		<column name="amount_enabled" type="int(2)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+    	</addColumn>
+    </changeSet>
+    <changeSet id="201604040001" author="liuhongxing">
+    	<insert tableName="t_award_level">
+    		<column name="lottery_type" value="2001"/>
+    		<column name="prize_level" value="6A"/>
+    		<column name="extra_prize" value="0"/>
+    		<column name="level_name" value="6等"/>
+    		<column name="prize" value="500"/>
+    	</insert>
+    	<insert tableName="t_award_level">
+    		<column name="lottery_type" value="2001"/>
+    		<column name="prize_level" value="6B"/>
+    		<column name="extra_prize" value="0"/>
+    		<column name="level_name" value="6等追加"/>
+    		<column name="prize" value="500"/>
+    	</insert>
+    </changeSet>
+    
+    <changeSet id="201604040002" author="liuhongxing">
+    	<sql>
+    		insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','Q1','0','前一','1300');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','Q2','0','前二','13000');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','Q3','0','前三','117000');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','R2','0','任选二','600');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','R3','0','任选三','1900');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','R4','0','任选四','7800');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','R5','0','任选五','54000');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','R6','0','任选六','9000');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','R7','0','任选七','2600');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','R8','0','任选八','900');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','Z2','0','组二','6500');
+			insert into `t_award_level` (`lottery_type`, `prize_level`, `extra_prize`, `level_name`, `prize`) values('2005','Z3','0','组三','19500');
+    	</sql>
+    </changeSet>
+    
+    
+    <changeSet id="201604070001" author="liuhongxing">
+    	<addColumn tableName="dc_race">
+    		<column name="game_type" type="varchar(10)" defaultValue=""/>
+    	</addColumn>
+    </changeSet>
+    
+     <changeSet author="renhongyu" id="2016042501001">
+        <addColumn tableName="user_coupon">
+            <column name="lottery_types" type="varchar(300)" >
+			</column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="fengqinyun" id="2016050801001">
+        <addColumn tableName="lottery_ticket_config">
+            <column name="send_thread_count" defaultValue="1" type="int(5)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="fengqinyun" id="2016050801002">
+        <addColumn tableName="terminal_config">
+            <column name="mix_contain" type="varchar(255)"/>
+         </addColumn>
+    </changeSet>
+
+    <changeSet author="fengqinyun" id="2016062401001">
+        <createTable tableName="lottery_channel_partner">
+            <column name="id" type="int(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="agencyno" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="agencyuser" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="userno" type="varchar(200)"/>
+        </createTable>
+        <createIndex tableName="lottery_channel_partner" indexName="idx_channe_u_a" unique="true">
+            <column name="agencyno"/>
+            <column name="agencyuser"/>
+        </createIndex>
+        <addColumn tableName="lottery_agency">
+            <column name="agency_key" type="varchar(200)"/>
+        </addColumn>
+    </changeSet>
+
+ </databaseChangeLog>
